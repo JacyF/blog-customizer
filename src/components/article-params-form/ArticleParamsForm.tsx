@@ -32,7 +32,7 @@ export const ArticleParamsForm = ({
 }: ArticleParamsFormProps) => {
 
 	// Open / Close Hook
-	const [isOpen, setIsOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	// Form State Config
 	const [state, setState] = useState(defaultArticleForm);
@@ -41,15 +41,15 @@ export const ArticleParamsForm = ({
 	const ref = useRef<HTMLFormElement | null>(null);
 
 	useOutsideClickClose({
-		isOpen,
+		isMenuOpen,
 		rootRef: ref,
-		onClose: () => setIsOpen(false),
+		onClose: () => setIsMenuOpen(false),
 		onChange: () => setState(state),
 	});
 
 	// Open / Close Aside Modal Function
 	const handleToggleForm = () => {
-		setIsOpen((isOpen) => !isOpen);
+		setIsMenuOpen((isMenuOpen) => !isMenuOpen);
 	};
 
 	// Form Loading Config
@@ -60,7 +60,7 @@ export const ArticleParamsForm = ({
 
 	// Reseting Form Config
 	const handleResetForm = () => {
-		setState(defaultArticleForm);
+		setState(defaultArticleState);
 		setDefaultArticleForm(defaultArticleState);
 	};
 
@@ -91,9 +91,9 @@ export const ArticleParamsForm = ({
 
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={handleToggleForm} />
+			<ArrowButton isOpen={isMenuOpen} onClick={handleToggleForm} />
 			<aside
-				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
+				className={clsx(styles.container, { [styles.container_open]: isMenuOpen })}>
 				<form
 					className={styles.form}
 					onSubmit={handleSubmitForm}
